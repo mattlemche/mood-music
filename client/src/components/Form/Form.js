@@ -1,51 +1,60 @@
+import React from 'react';
+import './Form.css';
+import axios from 'axios';
 
+const API_URL = 'http://localhost:8080/'
 
-import React, { Component } from 'react';
+class App extends React.Component {
 
-class Form extends Component {
-    state = {
-        mood: "",
-        success: false
+  componentDidMount() {
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.setState({
-            mood: e.target.mood.value,
-            success: true
-        }, () => console.log('submitted mood', this.state))
+    const body = {
+      text: "my mood is sad."
+    }
+    axios.post('https://sentim-api.herokuapp.com/api/v1/', body, headers )
+    .then(response => {
+      console.log(response.data.result.polarity);
+    })
+    .catch(error => console.log(error));
+  }
 
-        e.target.reset();
-        setInterval(() => this.props.history.push('/videoplayer'), 5000)
+  handleTextInput = (e) => {
+    e.preventDefault();
+
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
     }
 
-    render() {
-        return (
-            <form onSubmit = {this.handleSubmit}>
-            <h1>How is your mood</h1>
-            <label htmlFor="mood"> 😃 Happy
-                <input type="radio" label="happy" name="mood" value= "happy" />
-            </label>
-            <label htmlFor="mood"> 😍 In Love
-                <input type="radio" name="mood" value="inLove" />
-            </label>
-            <label htmlFor="mood"> 😉 Naughty
-                <input type="radio" name="mood" value= "naughty" />
-            </label>
-            <label htmlFor="mood"> 😇 Angelic
-                <input type="radio" name="mood" value="angelic" />
-            </label>
-            <label htmlFor="mood"> 🤩 Inspired
-                <input type="radio" name="mood" value= "inspired" />
-            </label>
-            <label htmlFor="mood"> 🥶 Cold 
-                <input type="radio" name="mood" value="cold" />
-            </label>
-            <div>{this.state.success  && <p>Generating your Mood ⏳</p>}</div>
-            <button type="submit">Submit</button>
+    const body = {
+      text: e.target.formInput.value
+    }
+    axios.post(`${API_URL}mood`, body, headers)
+    
+    .then((response) => {
+      console.log(`${API_URL}mood`)
+      console.log(response.data.polarity);
+    })
+  } 
+
+  render() {
+    return (
+      <div>
+        <h1>Is this working?</h1>
+        <form onSubmit={this.handleTextInput}>
+          <textarea className="form" name="formInput" type="text" rows="10">
+            </textarea>
+          <button type="submit">Submit</button>
         </form>
-        );
-    }
+      </div>
+    );
+  }
+
+  
 }
 
-export default Form;
+export default App;
