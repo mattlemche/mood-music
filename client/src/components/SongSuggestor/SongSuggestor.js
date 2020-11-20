@@ -48,12 +48,18 @@ class SongSuggestor extends React.Component {
         // console.log("This should be artist name", object.data.artist.name)
         return (
             <>
-                <p className="mood__label">your moody mood is</p>
-                <h2>{object.data.mood}</h2>
-                <h1>{object.data.name}</h1>
+                <p className="mood-label">your moody mood is</p>
+                <h2 className="mood">{object.data.mood}</h2>
+                <div className="song-suggest">
+                    <p className="song-label">Your mood suggests the song</p>
+                <h1 className="song-title">{object.data.name}</h1>
+                <p className="song-label">by</p>
+                <h3 className="artist-name">{object.data.artist.name}</h3>
+                </div>
                 
-                <h3>{object.data.artist.name}</h3>
-                <a href={object.data.url}>View song on Last.fm</a>
+                
+                
+                <a href={object.data.url} className="small-link">View song on Last.fm</a>
             </>
         )
     }
@@ -65,19 +71,26 @@ class SongSuggestor extends React.Component {
     render() {
 
         if (!this.state.mood) {
-            return (
-                <h1>SOrry, loading</h1>
-            )
-        } 
-
-        if (this.state.mood) {
-            return (
-                <div>
-                   {this.moodSongCreator(this.state.songObj)}
-                   <Link exact="true" to='/'>I have more thoughts</Link>
-                </div>
-            );
+                return (
+                    <div className="loading-container">
+                        <h1 className="loading">processing your feelings</h1>
+                    </div>
+                    
+                )
         }
+        
+        
+            if (this.state.mood) {
+                return (
+                    <div className="mood-outcome">
+                       {this.moodSongCreator(this.state.songObj)}
+                       <Link exact="true" to='/' className="link">I have more thoughts</Link>
+                    </div>
+                );
+            }
+     
+
+       
         
     }
     

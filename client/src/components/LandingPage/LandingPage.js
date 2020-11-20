@@ -1,16 +1,18 @@
 //import './ClearThoughts.scss';
-import Logo from '../../assets/logo/Logo-brainflix.svg';
+import logo from '../../assets/logo/moody-logo.svg';
 import { Link } from 'react-router-dom';
+import './LandingPage.css';
 
 
 function LandingPage() {
   return (
-    <div className="clear-thoughts">
-      <img src={Logo} alt="Clear Thoughts Logo" />
-      <Link to ="/form"><button type="submit">INSPIRE ME NOW</button></Link>
-        
+    <div className="landingpage">
+      <img  className="landingpage-logo" src={logo} alt="Clear Thoughts Logo" />
+      <h1 className="landingpage-h1">moody.</h1>
+      <Link className="landingpage-link" to ="/form"><button className="landingpage-button" type="submit">Read my thoughts</button></Link>
     </div>
   );
+
 }
 
 export default LandingPage;
