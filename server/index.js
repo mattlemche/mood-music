@@ -21,7 +21,6 @@ const genreRequest = (genre) => {
 };
 
 
-
 app.get('/', (req, res) => {
     const data = fs.readFileSync(moodData);
     res.json(data);
@@ -45,25 +44,50 @@ app.post('/mood', (req, res) => {
         console.log(response.data.result)
         const moodPolarity = response.data.result;
         return moodPolarity.polarity;
+
     }).then(response => {
 
         const genreFinder = (polarity) => {
             if (polarity >= -1 && polarity <= -0.8) {
-                return 'blues';
+                return {
+                    genre: 'blues',
+                    mood: "hanging on by a thread"
+                };
             } else if (polarity >= -0.7 && polarity <= -0.5) {
-                return 'singer-songwriter';
+                return {
+                    genre: 'singer-songwriter',
+                    mood: "down in the dumps"
+                };
             } else if (polarity >= -0.4 && polarity <= -0.2) {
-                return 'alternative';
+                return {
+                    genre: 'alternative',
+                    mood: "a weenie bit low"
+                };
             } else if (polarity >= -0.1 && polarity <= 0.1) {
-                return 'chillout';
+                return {
+                    genre: 'chillout',
+                    mood: "melancholy, yet hopeful"
+                };
             } else if (polarity >= 0.2 && polarity <= 0.4) {
-                return 'jazz';
+                return {
+                    genre: 'jazz',
+                    mood: "things are looking up"
+                };
             } else if (polarity >= 0.5 && polarity <= 0.7) {
-                return 'pop';
+                return {
+                    genre: 'pop',
+                    mood: "feeling like sunshine"
+                };
             } else if (polarity >= 0.8 && polarity <= 1) {
-                return 'dance';
+                return {
+                    genre: 'dance',
+                    mood: "jumping for joy"
+                };
             } else {
-                return 'psychedelic';
+                return {
+                    genre: 'blues',
+                    mood: "down in the dumps"
+                };
             }
         }
 
@@ -73,16 +97,19 @@ app.post('/mood', (req, res) => {
 
     }).then(response => {
         console.log(response);
+        
+        const moodMessage = response.mood
 
-        axios.get(genreRequest(response))
+        axios.get(genreRequest(response.genre))
         .then(response => {
 
-            
+            // finds a random index in song array
+            const randomSong = response.data.tracks.track[getRandomNumber(0, response.data.tracks.track.length)];
 
-            
-            const randomSong = response.data.tracks.track[getRandomNumber(0, response.data.tracks.track.length)]
-            console.log(randomSong);
-            return res.send(randomSong);
+            // adds mood message to song object
+            const songAndMood = { ...randomSong, mood: moodMessage };
+            console.log(songAndMood);
+            return res.send(songAndMood);
         })
     })
     .catch(error => {
