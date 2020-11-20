@@ -37,7 +37,7 @@ class App extends React.Component {
     
     .then((response) => {
       console.log(`${API_URL}mood`)
-      console.log(response.data.polarity);
+      console.log(response);
     })
   } 
 
