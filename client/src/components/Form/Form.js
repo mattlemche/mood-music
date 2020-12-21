@@ -1,49 +1,75 @@
 import React from 'react';
-import './Form.css';
-// import axios from 'axios';
+import './Form.scss';
 import SongSuggestor from '../SongSuggestor/SongSuggestor';
-import {Link} from 'react-router-dom';
-import logo from '../../assets/logo/moody-logo.svg';
+import Header from '../Header/Header';
+import Button from '../Button/Button';
 
-// const API_URL = 'http://localhost:8080/'
 
 class App extends React.Component {
 
   state = { 
     formInput: '',
+    isCompleted: false,
   }
 
-  handleTextInput = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log("logging formresults", e.target.formInput.value)
+
+    if (!e.target.formInput.value) {
+      return alert(`It's okay, you can tell us. Moody can't suggest a song without a bit of input from you. Don't worry, we won't tell anyone how you're feeling`)
+    }
+
     this.setState({ 
-      formInput: e.target.formInput.value
+      isCompleted: true,
     });
   } 
 
-  
+  handleIpnutChange = (e) => {
+    e.preventDefault();
+
+    this.setState({ 
+      formInput: e.target.value
+    })
+  }
 
   render() {
-    if (this.state.formInput) {
+    if (this.state.isCompleted) {
       return (
         <SongSuggestor formInputText={this.state.formInput}/>
       );
-     
     } 
+
+    console.log("Logging state from form", this.state.formInput)
     return (
-      <div className="form-div">
-        <img src={logo} alt="moody logo" className="logo logo--link"/>
-        <h3 className="form-title">go on.</h3>
-        <h3 className="form-title">tell it like it is.</h3>
-        <p className="form-instructions">
-        In a few sentences, describe how your day has been. <span>moody</span> will analyze how you’re feeling and suggest a song to suit your mood!
+
+      <>
+      <Header />
+      <section className="section section--form">
+        
+        <h3 className="heading3">go on.</h3>
+        <h3 className="heading3">tell it like it is.</h3>
+        <p className="paragraph">
+        In a few sentences, describe how your day has been. 
+        With care, <span className="wordmark wordmark--inline">moody</span> will analyze how you’re feeling and suggest a song to suit your mood!
         </p>
-        <form className="form-form" onSubmit={this.handleTextInput}>
-          <textarea className="form" name="formInput" type="text">
+        <form className="form" onSubmit={this.handleSubmit}>
+          <textarea 
+          className="form__input form__input--long" 
+          name="formInput" 
+          type="text"
+          onChange={this.handleIpnutChange}
+          value={this.state.formInput}
+          placeholder={ this.state.formInput ? this.state.formInput : "I'm feeling a little heart-broken today."}>
             </textarea>
-          <button className="button" type="submit">Read my thoughts</button>
+            
+            <Button buttonType="submit" buttonText="read my thoughts" />
+            
         </form>
-    </div>
+    </section>
+      </>
+     
     );
   
   }

@@ -1,7 +1,9 @@
 import React from 'react';
-import './SongSuggestor.css';
+import './SongSuggestor.scss';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Button from '../Button/Button';
+import Header from '../Header/Header';
 
 const API_URL = 'http://localhost:8080/'
 
@@ -29,13 +31,16 @@ class SongSuggestor extends React.Component {
             
             this.setState({ 
                 songObj: response,
-                mood: response.data.mood,
+                mood: response.data.moodMessage.mood,
             })
+
+            return response;
 
           })
           .then(response => {
               console.log(this.state.songObj)
-          });
+          })
+          .catch(err => console.log(err));
     }
 
     componentDidMount() {
@@ -45,21 +50,27 @@ class SongSuggestor extends React.Component {
 
     moodSongCreator = (object) => {
 
-        // console.log("This should be artist name", object.data.artist.name)
+        console.log("Loggin state obj", object.data.moodMessage.mood)
+
         return (
             <>
-                <p className="mood-label">your moody mood is</p>
-                <h2 className="mood">{object.data.mood}</h2>
-                <div className="song-suggest">
-                    <p className="song-label">Your mood suggests the song</p>
-                <h1 className="song-title">{object.data.name}</h1>
-                <p className="song-label">by</p>
-                <h3 className="artist-name">{object.data.artist.name}</h3>
+
+            <div className="mood">
+                    <p className="mood__label">your moody-mood is</p>
+                    <h2 className={ this.state.mood ? `mood__result mood__result--${object.data.moodMessage.genre}` : 'mood__result'}>{this.state.mood}</h2>
+            </div>
+
+            <div className='result'>                
+                <div className={ this.state.mood ? `song song--${object.data.moodMessage.genre}` : 'song'}>
+                    <p className="song__label">Your mood suggests the song</p>
+                    <h1 className="song__title">{object.data.name}</h1>
+                    <p className="song__label">by</p>
+                    <h3 className="song__artist">{object.data.artist.name}</h3>
                 </div>
                 
-                
-                
-                <a href={object.data.url} className="small-link">View song on Last.fm</a>
+                <a href={object.data.url} className="link link--small">View song on Last.fm</a>
+            </div>
+            
             </>
         )
     }
@@ -72,22 +83,33 @@ class SongSuggestor extends React.Component {
 
         if (!this.state.mood) {
                 return (
-                    <div className="loading-container">
-                        <h1 className="loading">processing your feelings</h1>
-                    </div>
+                    <>
+                        <Header />
+                        <section className="section section--loading">
+                            <h1 className="heading1">...processing your feelings</h1>
+                        </section>
+                    </>
+                    
                     
                 )
         }
         
         
-            if (this.state.mood) {
-                return (
-                    <div className="mood-outcome">
-                       {this.moodSongCreator(this.state.songObj)}
-                       <Link exact="true" to='/' className="link">I have more thoughts</Link>
-                    </div>
-                );
-            }
+        if (this.state.mood) {
+            return (
+                <>
+                    <Header />
+                    <section className=" section section--mood-outcome">
+                    {this.moodSongCreator(this.state.songObj)}
+                    <Link exact="true" to='/' className="link">
+                    <Button buttonText="I have more thoughts" />
+                        </Link>
+                    </section>
+                
+                </>
+                
+            );
+        }
      
 
        

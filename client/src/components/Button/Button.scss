@@ -1,0 +1,19 @@
+@import '../../partials/typography';
+@import '../../partials/variables';
+
+/*------------------------------------*\
+  #BUTTON
+\*------------------------------------*/
+
+.button {
+    display: block;
+    width: 100%;
+    max-width: 20rem;
+    padding: 2rem 1.5rem;
+    border: none;
+    border-radius: .25rem;
+    margin: 1rem auto;
+    background-color: $color-brand-one;
+    font-size: 1.5rem;
+    color: white;
+}

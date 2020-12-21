@@ -1,0 +1,104 @@
+@import '../../partials/typography';
+@import '../../partials/variables';
+
+/*------------------------------------*\
+  #SONG SUGGESTER
+\*------------------------------------*/
+
+.mood {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    &__result {
+        
+        font-size: 2rem;
+        font-weight: 900;
+
+        &--blues {
+            color: #134074;
+        }
+    
+        &--singer-songwriter {
+            color: #275876;
+        }
+    
+        &--alternative {
+            color: #357a7d;
+        }
+        
+        &--chillout {
+            color: $color-brand-one;
+        }
+    
+        &--jazz {
+            color: #6ea35d;
+        }
+    
+        &--pop {
+            color: #bea842;
+        }
+    
+        &--dance {
+            color: #f6ae2d;
+        }
+    }
+}
+
+.song {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.25rem;
+    color: $color-white;
+    text-align: center;
+
+    &__label {
+        font-size: 1.25rem;
+        
+    }
+
+    &__title {
+        font-size: 2.5rem;
+        font-style: italic;
+        line-height: 2.5rem;
+        margin: 1.5rem 0;
+    }
+
+    &__artist {
+        font-size: 1.5rem;
+    }
+
+    &--blues {
+        background-color: #134074;
+    }
+
+    &--singer-songwriter {
+        background-color: #275876;
+    }
+
+    &--alternative {
+        background-color: #357a7d;
+    }
+    
+    &--chillout {
+        background-color: $color-brand-one;
+    }
+
+    &--jazz {
+        background-color: #6ea35d;
+    }
+
+    &--pop {
+        background-color: #bea842;
+    }
+
+    &--dance {
+        background-color: #f6ae2d;
+    }
+}

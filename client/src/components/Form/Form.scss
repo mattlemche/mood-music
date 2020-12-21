@@ -1,0 +1,27 @@
+@import '../../partials/typography';
+@import '../../partials/variables';
+
+/*------------------------------------*\
+  #MOODY INPUT FORM
+\*------------------------------------*/
+
+
+.form {
+  &__input {
+    display: inline-block;
+    width: 100%;
+    height: 14rem;
+    padding: 1.75rem;
+    border: 3px solid $color-copy;
+    border-radius: 0.5rem;
+    resize: none;
+    color: $color-brand-one;
+    font-family: 'Kanit';
+    font-size: 1.75rem;
+
+    &:focus {
+      outline: none;
+      border: 3px solid $color-brand-one;
+    }
+  }
+}

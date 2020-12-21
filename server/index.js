@@ -98,7 +98,7 @@ app.post('/mood', (req, res) => {
     }).then(response => {
         console.log(response);
         
-        const moodMessage = response.mood
+        const moodMessage = response
 
         axios.get(genreRequest(response.genre))
         .then(response => {
@@ -107,7 +107,7 @@ app.post('/mood', (req, res) => {
             const randomSong = response.data.tracks.track[getRandomNumber(0, response.data.tracks.track.length)];
 
             // adds mood message to song object
-            const songAndMood = { ...randomSong, mood: moodMessage };
+            const songAndMood = { ...randomSong, moodMessage };
             console.log(songAndMood);
             return res.send(songAndMood);
         })
