@@ -30,7 +30,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-
 app.get('/', (req, res) => {
     const data = fs.readFileSync(moodData);
     res.json(data);
