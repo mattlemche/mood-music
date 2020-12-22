@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+   
 
     console.log("logging formresults", e.target.formInput.value)
 
