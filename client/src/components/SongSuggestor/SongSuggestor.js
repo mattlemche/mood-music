@@ -42,13 +42,12 @@ class SongSuggestor extends React.Component {
     }
 
     componentDidMount() {
-        this.moodSongGetter(this.props.formInputText);
+        this.moodSongGetter(this.props.history.location.state.text);
+        console.log("Logging props on mount of song suggestor", this.props)
     }
 
 
     moodSongCreator = (object) => {
-
-        
 
         return (
             <>

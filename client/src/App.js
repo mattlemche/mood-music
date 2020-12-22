@@ -12,8 +12,8 @@ const Routes = () => {
             <Router>
                 <Switch>
                     <Route exact path="/" component={Landingpage}/>
-                    <Route path="/song-suggestor" component={SongSuggester} />
-                    <Route path="/form" component={Form} />
+                    <Route path="/tell-moody" component={Form} />
+                    <Route path="/moody-says" component={SongSuggester} />
                 </Switch>
             </Router>
         </main>
