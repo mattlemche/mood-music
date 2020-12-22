@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 
-const API_URL = 'http://localhost:8080/'
+const API_URL = 'https://moody-music-app.herokuapp.com/'
 
 class SongSuggestor extends React.Component {
 
