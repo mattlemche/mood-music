@@ -5,7 +5,12 @@ const cors = require('cors');
 const axios = require('axios');
 const { Console } = require('console');
 
-const port = 8080;
+require('dotenv').config();
+
+const port = process.env.PORT || 3000;
+const MOOD_URL = 'https://sentim-api.herokuapp.com/api/v1/';
+const MUSIC_URL = 'http://ws.audioscrobbler.com/2.0/';
+const musicAPI = process.env.MUSIC_API_KEY;
 
 app.use(cors());
 app.use(express.json());
@@ -13,11 +18,8 @@ app.use(express.static('data'));
 
 const moodData = './data/moody-moods.json';
 
-const MOOD_URL = 'https://sentim-api.herokuapp.com/api/v1/';
-const MUSIC_URL = 'http://ws.audioscrobbler.com/2.0/';
-const MUSIC_API_KEY = 'f74d19587688118fb25cbc705319d2df';
 const genreRequest = (genre) => {
-    return `${MUSIC_URL}?method=tag.gettoptracks&tag=${genre}&api_key=${MUSIC_API_KEY}&format=json`
+    return `${MUSIC_URL}?method=tag.gettoptracks&tag=${genre}&api_key=${musicAPI}&format=json`
 };
 
 
@@ -38,6 +40,8 @@ app.post('/mood', (req, res) => {
         "Accept": "application/json",
         "Content-Type": "application/json"
     }
+
+    console.log("Logging mood URL", MOOD_URL);
 
     axios.post(MOOD_URL, userSentence, headers)
     .then(response => {

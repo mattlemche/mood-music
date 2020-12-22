@@ -100,10 +100,16 @@ class SongSuggestor extends React.Component {
                 <>
                     <Header />
                     <section className=" section section--mood-outcome">
-                    {this.moodSongCreator(this.state.songObj)}
-                    <Link exact="true" to='/' className="link">
-                    <Button buttonText="I have more thoughts" />
-                        </Link>
+                        {this.moodSongCreator(this.state.songObj)}
+                        <div>
+                            <p className="mood__label">
+                                Change of heart?
+                            </p>
+                            <Link exact="true" to='/' className="link">
+                            <Button buttonText="I have more thoughts" />
+                                </Link>
+                        </div>
+                        
                     </section>
                 
                 </>

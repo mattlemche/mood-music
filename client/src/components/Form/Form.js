@@ -18,7 +18,7 @@ class App extends React.Component {
     console.log("logging formresults", e.target.formInput.value)
 
     if (!e.target.formInput.value) {
-      return alert(`It's okay, you can tell us. Moody can't suggest a song without a bit of input from you. Don't worry, we won't tell anyone how you're feeling`)
+      return alert(`It's okay, you can tell us. Moody can't suggest a song without a bit of input from you. Don't worry, we won't tell anyone how you're feeling.`)
     }
 
     this.setState({ 
