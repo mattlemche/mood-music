@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 
-const API_URL = 'https://moody-music-app.herokuapp.com/'
+const API_URL = 'https://moody-music-app.herokuapp.com/moody-api/'
 
 class SongSuggestor extends React.Component {
 
@@ -26,8 +26,6 @@ class SongSuggestor extends React.Component {
           axios.post(`${API_URL}mood`, body, headers)
           
           .then((response) => {
-            // console.log(`${API_URL}mood`)
-            // console.log(response);
             
             this.setState({ 
                 songObj: response,
