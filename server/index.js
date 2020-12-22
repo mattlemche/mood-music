@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.get('/', (req, res) => {
+app.get('/moody-api', (req, res) => {
     const data = fs.readFileSync(moodData);
     res.json(data);
 });
@@ -41,7 +41,7 @@ const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-app.post('/mood', (req, res) => {
+app.post('/moody-api/mood', (req, res) => {
     const userSentence = req.body;
     const headers = {
         "Accept": "application/json",
