@@ -7,7 +7,7 @@ const { Console } = require('console');
 
 require('dotenv').config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const MOOD_URL = 'https://sentim-api.herokuapp.com/api/v1/';
 const MUSIC_URL = 'http://ws.audioscrobbler.com/2.0/';
 const musicAPI = process.env.MUSIC_API_KEY;
