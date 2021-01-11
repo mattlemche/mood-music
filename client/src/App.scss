@@ -36,11 +36,11 @@ body {
 
 .section {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 5.75rem 1.5rem 5.75rem;
 
   &--mood-outcome {
     justify-content: space-between;
@@ -83,6 +83,7 @@ body {
 
 .paragraph {
   margin-bottom: 1rem;
+  font-size: 1.25rem;
 }
 
 .wordmark {
@@ -96,8 +97,7 @@ body {
   &--inline {
     display: inline-block;
     margin: 0;
-    font-size: 1.2rem;
-    font-style: normal;
+    font-size: 1.5rem;
     
   }
 }

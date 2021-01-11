@@ -10,7 +10,7 @@ function LandingPage() {
     <section className="section section--landingpage">
       <Logo />
       <h1 className="wordmark">moody.</h1>
-      <Link className="link link--button" to ="/form">
+      <Link className="link link--button" to ="/tell-moody">
         <Button buttonText="feel the beat" />
         
       </Link>

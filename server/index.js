@@ -4,10 +4,11 @@ const fs = require('fs');
 const cors = require('cors');
 const axios = require('axios');
 const { Console } = require('console');
+const path = require("path");
 
 require('dotenv').config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const MOOD_URL = 'https://sentim-api.herokuapp.com/api/v1/';
 const MUSIC_URL = 'http://ws.audioscrobbler.com/2.0/';
 const musicAPI = process.env.MUSIC_API_KEY;
@@ -22,8 +23,15 @@ const genreRequest = (genre) => {
     return `${MUSIC_URL}?method=tag.gettoptracks&tag=${genre}&api_key=${musicAPI}&format=json`
 };
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static("../client/build"));
+    
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(__dirname, "../client", "build", "index.html"));
+    });
+}
 
-app.get('/', (req, res) => {
+app.get('/moody-api', (req, res) => {
     const data = fs.readFileSync(moodData);
     res.json(data);
 });
@@ -34,7 +42,7 @@ const getRandomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-app.post('/mood', (req, res) => {
+app.post('/moody-api/mood', (req, res) => {
     const userSentence = req.body;
     const headers = {
         "Accept": "application/json",
