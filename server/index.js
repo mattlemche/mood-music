@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.get('/moody-api', (req, res) => {
     const data = fs.readFileSync(moodData);
-    res.json(data);
+    res.json(JSON.parse(data));
 });
 
 // Post request to Sentiment API to return polarity to React App.
@@ -49,11 +49,8 @@ app.post('/moody-api/mood', (req, res) => {
         "Content-Type": "application/json"
     }
 
-    console.log("Logging mood URL", MOOD_URL);
-
     axios.post(MOOD_URL, userSentence, headers)
     .then(response => {
-        console.log(response.data.result)
         const moodPolarity = response.data.result;
         return moodPolarity.polarity;
 
@@ -108,19 +105,18 @@ app.post('/moody-api/mood', (req, res) => {
         return genre
 
     }).then(response => {
-        console.log(response);
         
         const moodMessage = response
 
         axios.get(genreRequest(response.genre))
         .then(response => {
 
-            // finds a random index in song array
+            // finds a random index in song array.
             const randomSong = response.data.tracks.track[getRandomNumber(0, response.data.tracks.track.length)];
 
-            // adds mood message to song object
+            // adds mood message to song object.
             const songAndMood = { ...randomSong, moodMessage };
-            console.log(songAndMood);
+            
             return res.send(songAndMood);
         })
     })

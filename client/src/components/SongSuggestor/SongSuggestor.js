@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 import Header from '../Header/Header';
 
-const API_URL = 'https://moody-music-app.herokuapp.com/moody-api/'
+
+
+const API_URL = process.env.NODE_ENV === 'production'
+    ? 'https://moody-music-app.herokuapp.com/moody-api/'
+    : 'http://localhost:5000/moody-api/';
+// const API_URL = 'https://moody-music-app.herokuapp.com/moody-api/';
+
+
 
 class SongSuggestor extends React.Component {
 
@@ -35,15 +42,12 @@ class SongSuggestor extends React.Component {
             return response;
 
           })
-          .then(response => {
-              console.log(this.state.songObj)
-          })
           .catch(err => console.log(err));
     }
 
     componentDidMount() {
         this.moodSongGetter(this.props.history.location.state.text);
-        console.log("Logging props on mount of song suggestor", this.props)
+        
     }
 
 
